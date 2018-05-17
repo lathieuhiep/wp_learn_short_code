@@ -1,4 +1,7 @@
 <?php
+
+include_once 'short-code/function_shortcode.php';
+
 function hello_world() {
     echo ' hello world';
 }

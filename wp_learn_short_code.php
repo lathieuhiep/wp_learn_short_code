@@ -85,7 +85,7 @@ if ( !class_exists( 'WP_Learn_Short_Code' ) ) :
         /* Frontend scripts */
         function wp_learn_shortcode_frontend_scripts() {
 
-
+            wp_enqueue_style( 'shortcode', wp_learn_shortcode_path. 'assets/css/shortcode.css', array(), '' );
 
         }
 
