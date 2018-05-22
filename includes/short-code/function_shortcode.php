@@ -1,6 +1,16 @@
 <?php
+global $wp_short_code_element;
 
-include_once 'tooltip/tooltip.php';
+$wp_short_code_element = array(
+    'tooltip',
+    'recent-posts'
+);
+
+foreach ( $wp_short_code_element as $wp_short_code_element_item ) :
+
+    include_once $wp_short_code_element_item . '/' . $wp_short_code_element_item .'.php' ;
+
+endforeach;
 
 // Filter Functions with Hooks
 function custom_mce_button() {
@@ -19,16 +29,30 @@ function custom_mce_button() {
     }
 
 }
-add_action('admin_head', 'custom_mce_button');
+add_action('admin_init', 'custom_mce_button');
 
 // Function for new button
 function custom_tinymce_plugin( $plugin_array ) {
-    $plugin_array['custom_mce_button'] = wp_learn_shortcode_path .'includes/short-code/tooltip/tooltip_jquery.js';
+    global $wp_short_code_element;
+
+    foreach ( $wp_short_code_element as $wp_short_code_element_item ) :
+
+        $plugin_array[$wp_short_code_element_item] = wp_learn_shortcode_path .'includes/short-code/'.$wp_short_code_element_item.'/'.$wp_short_code_element_item.'-jquery.js';
+
+    endforeach;
+
     return $plugin_array;
 }
 
 // Register new button in the editor
 function register_mce_button( $buttons ) {
-    array_push( $buttons, 'custom_mce_button' );
+    global $wp_short_code_element;
+
+    foreach ( $wp_short_code_element as $wp_short_code_element_item ) :
+
+        array_push( $buttons, $wp_short_code_element_item );
+
+    endforeach;
+
     return $buttons;
 }
